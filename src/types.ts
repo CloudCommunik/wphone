@@ -41,5 +41,5 @@ export interface InviterConfig {
   userAgent: UserAgent;
   targetAOR: string;
   audioElement: HTMLAudioElement;
-  extraHeaders: Array<string>;
+  extraHeaders?: Array<string>;
 }
