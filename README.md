@@ -1,3 +1,3 @@
 # WPhone
 
-This is the very begining of Fonoster WPhone.
+The very begining of Fonoster WPhone.
