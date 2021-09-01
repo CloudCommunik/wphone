@@ -16,21 +16,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { 
-  CallRequest, 
-  MessageRequest, 
-  WPhoneConfig 
+import {
+  CallRequest,
+  MessageRequest,
+  WPhoneConfig
 } from "./types";
-import { 
-  Invitation, 
-  Inviter, 
-  Message, 
-  Registerer, 
-  RegistererOptions, 
-  SessionDescriptionHandler, 
-  URI, 
-  UserAgent, 
-  UserAgentDelegate 
+import {
+  Invitation,
+  Inviter,
+  Message,
+  Registerer,
+  RegistererOptions,
+  SessionDescriptionHandler,
+  URI,
+  UserAgent,
+  UserAgentDelegate
 } from "sip.js";
 import {
   createUserAgentOptions,
@@ -59,6 +59,7 @@ export default class WPhone {
   registerer: Registerer;
   inviter: Inviter;
   sessionDescriptionHandler: SessionDescriptionHandler;
+  config: WPhoneConfig;
   /**
    * Constructs a new WPhone object.
    *
@@ -73,6 +74,7 @@ export default class WPhone {
    * @param {string} config.expires - Expiration for register requests
    */
   constructor(config: WPhoneConfig) {
+    this.config = config;
     this.audioElement = getAudio(config.audioElementId);
     this.events = new Events();
     this.connected = false;
@@ -120,7 +122,7 @@ export default class WPhone {
     const result = createInviter({
       userAgent: this.userAgent,
       audioElement: this.audioElement,
-      extraHeaders: request.extraHeaders,
+      extraHeaders: request.extraHeaders || this.config.extraHeaders,
       targetAOR: request.targetAOR
     });
     this.inviter = result.inviter;
@@ -137,32 +139,30 @@ export default class WPhone {
       this.inviter.dispose();
     }
   }
-  
+
   /**
    * Connects to signaling server and optionally register too.
    */
-  connect(register = false) {
-    this.userAgent.start()
-    .then(() => {
-      // Also register
+  async connect(register = false) {
+    try {
+      await this.userAgent.start()
       if (register) {
         this.registerer.register();
       }
-    })
-    .catch(e => {
+    } catch (e) {
       this.events.emit("error", e);
-    })
+    }
   }
- 
+
   /**
    * Reconnects to signaling server.
    */
-  reconnect() {
-    this.userAgent.reconnect()
-    .then(() => {})
-    .catch(e => {
+  async reconnect() {
+    try {
+      await this.userAgent.reconnect();
+    } catch (e) {
       this.events.emit("error", e);
-    });
+    }
   }
 
   /**
@@ -207,7 +207,7 @@ export default class WPhone {
    *  - error
    *  - disconnect
    */
-  on(eventName: string, callback: Function) { 
+  on(eventName: string, callback: Function) {
     this.events.on(eventName, (data: unknown) => {
       callback(data);
     });

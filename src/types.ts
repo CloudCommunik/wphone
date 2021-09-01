@@ -24,7 +24,7 @@ export interface WPhoneConfig {
   username: string;
   secret: string;
   audioElementId: string;
-  extraHeaders: Array<string>;
+  extraHeaders?: Array<string>;
   expires?: number;
   server: string;
 }
