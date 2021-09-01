@@ -5,13 +5,13 @@ export interface WPhoneConfig {
     username: string;
     secret: string;
     audioElementId: string;
-    extraHeaders: Array<string>;
+    extraHeaders?: Array<string>;
     expires?: number;
     server: string;
 }
 export interface CallRequest {
     targetAOR: string;
-    extraHeaders: Array<string>;
+    extraHeaders?: Array<string>;
 }
 export interface MessageRequest {
 }
@@ -19,5 +19,5 @@ export interface InviterConfig {
     userAgent: UserAgent;
     targetAOR: string;
     audioElement: HTMLAudioElement;
-    extraHeaders: Array<string>;
+    extraHeaders?: Array<string>;
 }

@@ -22,6 +22,7 @@ export default class WPhone {
     registerer: Registerer;
     inviter: Inviter;
     sessionDescriptionHandler: SessionDescriptionHandler;
+    config: WPhoneConfig;
     /**
      * Constructs a new WPhone object.
      *
@@ -57,11 +58,11 @@ export default class WPhone {
     /**
      * Connects to signaling server and optionally register too.
      */
-    connect(register?: boolean): void;
+    connect(register?: boolean): Promise<void>;
     /**
      * Reconnects to signaling server.
      */
-    reconnect(): void;
+    reconnect(): Promise<void>;
     /**
      * Clsoses connection to signaling server.
      */
