@@ -2,7 +2,8 @@
   "name": "wphone",
   "version": "0.0.1",
   "description": "WebRTC phone",
-  "main": "src/index.js",
+  "main": "dist/wphone",
+  "types": "dist/wphone",
   "scripts": {
     "start": "http-server public -S -C ./etc/cert.pem -K ./etc/key.pem -o -c10",
     "start:unsecured": "http-server public -o -c10",

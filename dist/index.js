@@ -1,3 +1,4 @@
+"use strict";
 /*
  * Copyright (C) 2021 by Fonoster Inc (https://fonoster.com)
  * http://github.com/fonoster/wphone
@@ -16,13 +17,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import { CallRequest, MessageRequest, WPhoneConfig } from "./types";
-import WPhone from "./wphone";
-
-export default WPhone;
-export { 
-  WPhoneConfig, 
-  CallRequest, 
-  MessageRequest
-}
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var wphone_1 = __importDefault(require("./wphone"));
+exports.default = wphone_1.default;
+//# sourceMappingURL=index.js.map
