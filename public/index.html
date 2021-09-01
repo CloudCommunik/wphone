@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8" />
+  <title>WPHONE</title>
+  <style>
+    h1 {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    input {
+      width: 230px;
+    }
+
+    td {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 400;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>WPHONE</h1>
+  <table>
+    <tr>
+      <td>Display Name:</td>
+      <td>
+        <input type="text" id="displayName" placeholder="John Doe" />
+      </td>
+    </tr>
+    <tr>
+      <td> Username:</td>
+      <td>
+        <input type="text" id="username" placeholder="1001" />
+      </td>
+    </tr>
+    <tr>
+      <td>Password:</td>
+      <td>
+        <input type="password" id="secret" />
+      </td>
+    </tr>
+    <tr>
+      <td>Domain:</td>
+      <td>
+        <input type="text" id="domain" placeholder="sip.fonoster.io" />
+      </td>
+    </tr>
+    <tr>
+      <td>Signal Server:</td>
+      <td>
+        <input type="text" id="server" placeholder="ws://sip.fonoster.io:5062" />
+      </td>
+    </tr>
+    <tr>
+      <td>Target AOR:</td>
+      <td>
+        <input type="text" id="targetAOR" placeholder="sip:1002@sip.camanio.com" />
+      </td>
+    </tr>
+    <tr>
+      <td>Extra Headers:</td>
+      <td>
+        <input type="text" id="extraHeaders" placeholder="X-DID-Info: 9122122120," />
+      </td>
+    </tr>
+  </table>
+
+  <br />
+
+  <button id="connect">Call</button>
+  <button id="disconnect">Hangup</button>
+
+  <audio style="display: none" id="remoteAudio" controls>
+    <p>Your browser doesn't support HTML5 audio.</p>
+  </audio>
+  <script src="/lib/wphone.js?ref=18"
+    onerror="alert('To run this demo you must first build the library and demo source! See the README.')">
+    </script>
+</body>
+
+</html>
