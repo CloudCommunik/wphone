@@ -170,7 +170,9 @@ export default class WPhone {
    */
   disconnect() {
     this.userAgent.stop();
-    this.registerer.unregister();
+    try {
+      this.registerer.unregister();
+    } catch(e) {}
   }
 
   /**

@@ -185,7 +185,10 @@ var WPhone = /** @class */ (function () {
      */
     WPhone.prototype.disconnect = function () {
         this.userAgent.stop();
-        this.registerer.unregister();
+        try {
+            this.registerer.unregister();
+        }
+        catch (e) { }
     };
     /**
      * Returns true if the wphone is connected to WS or WSS server.
