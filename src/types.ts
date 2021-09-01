@@ -31,7 +31,7 @@ export interface WPhoneConfig {
 
 export interface CallRequest {
   targetAOR: string;
-  extraHeaders: Array<string>;
+  extraHeaders?: Array<string>;
 }
 
 export interface MessageRequest {
