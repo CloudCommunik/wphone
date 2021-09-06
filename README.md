@@ -2,7 +2,7 @@
 
 The very begining of Fonoster WPhone.
 
-Use
+Usage:
 
 ```bash
 git clone https://github.com/fonoster/wphone
