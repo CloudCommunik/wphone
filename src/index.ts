@@ -25,4 +25,5 @@ export {
   WPhoneConfig, 
   CallRequest, 
   MessageRequest
-}
+};
+export * from "./utils";
