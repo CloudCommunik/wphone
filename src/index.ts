@@ -17,13 +17,14 @@
  * limitations under the License.
  */
 
-import { CallRequest, MessageRequest, WPhoneConfig } from "./types";
+import { CallRequest, MessageRequest, WPhoneConfig, InviterConfig } from "./types";
 import WPhone from "./wphone";
 
 export default WPhone;
 export { 
   WPhoneConfig, 
   CallRequest, 
-  MessageRequest
+  MessageRequest,
+  InviterConfig
 };
 export * from "./utils";
