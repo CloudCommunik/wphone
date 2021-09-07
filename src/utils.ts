@@ -49,7 +49,9 @@ export function createInviter(inviterParam: InviterConfig) {
         break;
       case SessionState.Established:
         const sessionDescriptionHandler = inviter.sessionDescriptionHandler as Web.SessionDescriptionHandler;
+        console.log("DBG001");
         sessionDescriptionHandler.sendDtmf("1234");
+        console.log("DBG002");
         assignStream(sessionDescriptionHandler.remoteMediaStream, inviterParam.audioElement);
         sessionDescriptionHandler.peerConnectionDelegate = {
           // NOTE:: SB - Allowing to get onTrack events to know when a new track added to the peer connection.
