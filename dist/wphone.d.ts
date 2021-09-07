@@ -50,7 +50,7 @@ export default class WPhone {
      *   targetAOR: "sip:1001@sip.domain.net"
      * });
      */
-    call(request: CallRequest): void;
+    call(request: CallRequest): Promise<void>;
     /**
      * Closes the session.
      */

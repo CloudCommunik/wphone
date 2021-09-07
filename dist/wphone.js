@@ -111,15 +111,26 @@ var WPhone = /** @class */ (function () {
      * });
      */
     WPhone.prototype.call = function (request) {
-        var inviter = (0, utils_js_1.createInviter)({
-            userAgent: this.userAgent,
-            audioElement: this.audioElement,
-            extraHeaders: request.extraHeaders || this.config.extraHeaders,
-            targetAOR: request.targetAOR
+        return __awaiter(this, void 0, void 0, function () {
+            var inviter;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        inviter = (0, utils_js_1.createInviter)({
+                            userAgent: this.userAgent,
+                            audioElement: this.audioElement,
+                            extraHeaders: request.extraHeaders || this.config.extraHeaders,
+                            targetAOR: request.targetAOR
+                        });
+                        this.inviter = inviter;
+                        return [4 /*yield*/, this.inviter.invite()];
+                    case 1:
+                        _a.sent();
+                        this.sessionDescriptionHandler = this.inviter.sessionDescriptionHandler;
+                        return [2 /*return*/];
+                }
+            });
         });
-        this.inviter = inviter;
-        this.sessionDescriptionHandler = inviter.sessionDescriptionHandler;
-        this.inviter.invite();
     };
     /**
      * Closes the session.

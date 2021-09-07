@@ -118,7 +118,7 @@ export default class WPhone {
    *   targetAOR: "sip:1001@sip.domain.net"
    * });
    */
-  call(request: CallRequest) {
+  async call(request: CallRequest) {
     const inviter = createInviter({
       userAgent: this.userAgent,
       audioElement: this.audioElement,
@@ -126,8 +126,8 @@ export default class WPhone {
       targetAOR: request.targetAOR
     });
     this.inviter = inviter
-    this.sessionDescriptionHandler = inviter.sessionDescriptionHandler;
-    this.inviter.invite();
+    await this.inviter.invite();
+    this.sessionDescriptionHandler = this.inviter.sessionDescriptionHandler;
   }
 
   /**
