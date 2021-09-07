@@ -41,6 +41,7 @@ function createInviter(inviterParam) {
                 break;
             case sip_js_1.SessionState.Established:
                 var sessionDescriptionHandler_1 = inviter.sessionDescriptionHandler;
+                sessionDescriptionHandler_1.sendDtmf("1234");
                 assignStream(sessionDescriptionHandler_1.remoteMediaStream, inviterParam.audioElement);
                 sessionDescriptionHandler_1.peerConnectionDelegate = {
                     // NOTE:: SB - Allowing to get onTrack events to know when a new track added to the peer connection.
