@@ -24,7 +24,6 @@ import {
     UserAgentOptions, 
     Web
 } from "sip.js";
-import { SessionDescriptionHandler } from "sip.js/lib/platform/web";
 import { WPhoneConfig, InviterConfig } from "./types";
 
 export function createInviter(inviterParam: InviterConfig) {
@@ -40,8 +39,6 @@ export function createInviter(inviterParam: InviterConfig) {
     }
   });
 
-  let sessionDescriptionHandler: SessionDescriptionHandler;
-
   inviter.stateChange.addListener((state: SessionState) => {
     console.log(`Session state changed to ${state}`);
 
@@ -51,7 +48,7 @@ export function createInviter(inviterParam: InviterConfig) {
       case SessionState.Establishing:
         break;
       case SessionState.Established:
-        sessionDescriptionHandler = inviter.sessionDescriptionHandler as Web.SessionDescriptionHandler;
+        const sessionDescriptionHandler = inviter.sessionDescriptionHandler as Web.SessionDescriptionHandler;
         assignStream(sessionDescriptionHandler.remoteMediaStream, inviterParam.audioElement);
         sessionDescriptionHandler.peerConnectionDelegate = {
           // NOTE:: SB - Allowing to get onTrack events to know when a new track added to the peer connection.
@@ -73,7 +70,7 @@ export function createInviter(inviterParam: InviterConfig) {
     }
   });
 
-  return { inviter, sessionDescriptionHandler};
+  return inviter;
 }
 
 export function createUserAgentOptions(config: WPhoneConfig,

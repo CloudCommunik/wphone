@@ -32,7 +32,6 @@ function createInviter(inviterParam) {
             }
         }
     });
-    var sessionDescriptionHandler;
     inviter.stateChange.addListener(function (state) {
         console.log("Session state changed to " + state);
         switch (state) {
@@ -41,14 +40,14 @@ function createInviter(inviterParam) {
             case sip_js_1.SessionState.Establishing:
                 break;
             case sip_js_1.SessionState.Established:
-                sessionDescriptionHandler = inviter.sessionDescriptionHandler;
-                assignStream(sessionDescriptionHandler.remoteMediaStream, inviterParam.audioElement);
-                sessionDescriptionHandler.peerConnectionDelegate = {
+                var sessionDescriptionHandler_1 = inviter.sessionDescriptionHandler;
+                assignStream(sessionDescriptionHandler_1.remoteMediaStream, inviterParam.audioElement);
+                sessionDescriptionHandler_1.peerConnectionDelegate = {
                     // NOTE:: SB - Allowing to get onTrack events to know when a new track added to the peer connection.
                     // When we get a new track event, we'll assign the last new remote media stream to HTML audio element source.
                     // Mostly will occur when RE-INVITEs will happen.
                     ontrack: function (event) {
-                        assignStream(sessionDescriptionHandler.remoteMediaStream, inviterParam.audioElement);
+                        assignStream(sessionDescriptionHandler_1.remoteMediaStream, inviterParam.audioElement);
                     }
                 };
                 break;
@@ -62,7 +61,7 @@ function createInviter(inviterParam) {
                 throw new Error("Unknown session state.");
         }
     });
-    return { inviter: inviter, sessionDescriptionHandler: sessionDescriptionHandler };
+    return inviter;
 }
 exports.createInviter = createInviter;
 function createUserAgentOptions(config, delegate) {

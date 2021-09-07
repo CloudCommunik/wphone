@@ -119,14 +119,14 @@ export default class WPhone {
    * });
    */
   call(request: CallRequest) {
-    const result = createInviter({
+    const inviter = createInviter({
       userAgent: this.userAgent,
       audioElement: this.audioElement,
       extraHeaders: request.extraHeaders || this.config.extraHeaders,
       targetAOR: request.targetAOR
     });
-    this.inviter = result.inviter;
-    this.sessionDescriptionHandler = result.sessionDescriptionHandler;
+    this.inviter = inviter
+    this.sessionDescriptionHandler = inviter.sessionDescriptionHandler;
     this.inviter.invite();
   }
 

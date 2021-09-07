@@ -111,14 +111,14 @@ var WPhone = /** @class */ (function () {
      * });
      */
     WPhone.prototype.call = function (request) {
-        var result = (0, utils_js_1.createInviter)({
+        var inviter = (0, utils_js_1.createInviter)({
             userAgent: this.userAgent,
             audioElement: this.audioElement,
             extraHeaders: request.extraHeaders || this.config.extraHeaders,
             targetAOR: request.targetAOR
         });
-        this.inviter = result.inviter;
-        this.sessionDescriptionHandler = result.sessionDescriptionHandler;
+        this.inviter = inviter;
+        this.sessionDescriptionHandler = inviter.sessionDescriptionHandler;
         this.inviter.invite();
     };
     /**
