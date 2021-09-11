@@ -31,7 +31,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var wphone_1 = __importDefault(require("./wphone"));
+const wphone_1 = __importDefault(require("./wphone"));
 exports.default = wphone_1.default;
 __exportStar(require("./utils"), exports);
 //# sourceMappingURL=index.js.map

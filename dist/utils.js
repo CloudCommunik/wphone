@@ -19,11 +19,11 @@ exports.getConfig = exports.setInput = exports.getInput = exports.getButton = ex
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var sip_js_1 = require("sip.js");
+const sip_js_1 = require("sip.js");
 function createInviter(inviterParam) {
     console.log("inviterParam.extraHeaders %s", inviterParam.extraHeaders);
-    var target = sip_js_1.UserAgent.makeURI(inviterParam.targetAOR);
-    var inviter = new sip_js_1.Inviter(inviterParam.userAgent, target, {
+    const target = sip_js_1.UserAgent.makeURI(inviterParam.targetAOR);
+    const inviter = new sip_js_1.Inviter(inviterParam.userAgent, target, {
         extraHeaders: inviterParam.extraHeaders,
         sessionDescriptionHandlerOptions: {
             constraints: {
@@ -32,22 +32,22 @@ function createInviter(inviterParam) {
             }
         }
     });
-    inviter.stateChange.addListener(function (state) {
-        console.log("Session state changed to " + state);
+    inviter.stateChange.addListener((state) => {
+        console.log(`Session state changed to ${state}`);
         switch (state) {
             case sip_js_1.SessionState.Initial:
                 break;
             case sip_js_1.SessionState.Establishing:
                 break;
             case sip_js_1.SessionState.Established:
-                var sessionDescriptionHandler_1 = inviter.sessionDescriptionHandler;
-                assignStream(sessionDescriptionHandler_1.remoteMediaStream, inviterParam.audioElement);
-                sessionDescriptionHandler_1.peerConnectionDelegate = {
+                const sessionDescriptionHandler = inviter.sessionDescriptionHandler;
+                assignStream(sessionDescriptionHandler.remoteMediaStream, inviterParam.audioElement);
+                sessionDescriptionHandler.peerConnectionDelegate = {
                     // NOTE:: SB - Allowing to get onTrack events to know when a new track added to the peer connection.
                     // When we get a new track event, we'll assign the last new remote media stream to HTML audio element source.
                     // Mostly will occur when RE-INVITEs will happen.
-                    ontrack: function (event) {
-                        assignStream(sessionDescriptionHandler_1.remoteMediaStream, inviterParam.audioElement);
+                    ontrack(event) {
+                        assignStream(sessionDescriptionHandler.remoteMediaStream, inviterParam.audioElement);
                     }
                 };
                 break;
@@ -66,8 +66,8 @@ function createInviter(inviterParam) {
 exports.createInviter = createInviter;
 function createUserAgentOptions(config, delegate) {
     return {
-        uri: sip_js_1.UserAgent.makeURI("sip:" + config.username + "@" + config.domain),
-        delegate: delegate,
+        uri: sip_js_1.UserAgent.makeURI(`sip:${config.username}@${config.domain}`),
+        delegate,
         displayName: config.displayName,
         authorizationUsername: config.username,
         authorizationPassword: config.secret,
@@ -83,22 +83,22 @@ function assignStream(stream, element) {
     element.autoplay = true; // Safari does not allow calling .play() from a non user action
     element.srcObject = stream;
     // Load and start playback of media.
-    element.play().catch(function (error) {
+    element.play().catch((error) => {
         console.error("Failed to play media");
         console.error(error);
     });
     // If a track is added, load and restart playback of media.
-    stream.onaddtrack = function () {
+    stream.onaddtrack = () => {
         element.load(); // Safari does not work otheriwse
-        element.play().catch(function (error) {
+        element.play().catch((error) => {
             console.error("Failed to play remote media on add track");
             console.error(error);
         });
     };
     // If a track is removed, load and restart playback of media.
-    stream.onremovetrack = function () {
+    stream.onremovetrack = () => {
         element.load(); // Safari does not work otheriwse
-        element.play().catch(function (error) {
+        element.play().catch((error) => {
             console.error("Failed to play remote media on remove track");
             console.error(error);
         });
@@ -106,36 +106,36 @@ function assignStream(stream, element) {
 }
 exports.assignStream = assignStream;
 function getAudio(id) {
-    var el = document.getElementById(id);
+    const el = document.getElementById(id);
     if (!(el instanceof HTMLAudioElement)) {
-        throw new Error("Element \"" + id + "\" not found or not an audio element.");
+        throw new Error(`Element "${id}" not found or not an audio element.`);
     }
     return el;
 }
 exports.getAudio = getAudio;
 function getButton(id) {
-    var el = document.getElementById(id);
+    const el = document.getElementById(id);
     if (!(el instanceof HTMLButtonElement)) {
-        throw new Error("Element \"" + id + "\" not found or not a button element.");
+        throw new Error(`Element "${id}" not found or not a button element.`);
     }
     return el;
 }
 exports.getButton = getButton;
 function getInput(id) {
-    var el = document.getElementById(id);
+    const el = document.getElementById(id);
     if (!(el instanceof HTMLInputElement)) {
-        throw new Error("Element \"" + id + "\" not found or not an input element.");
+        throw new Error(`Element "${id}" not found or not an input element.`);
     }
     return el;
 }
 exports.getInput = getInput;
 function setInput(id, value) {
-    var input = getInput(id);
+    const input = getInput(id);
     input.value = value ? value : "";
 }
 exports.setInput = setInput;
 function getConfig() {
-    var extraHeaders = getInput("extraHeaders").value
+    const extraHeaders = getInput("extraHeaders").value
         ? getInput("extraHeaders").value.split(",")
         : null;
     return {
@@ -144,7 +144,7 @@ function getConfig() {
         secret: getInput("secret").value,
         domain: getInput("domain").value,
         server: getInput("server").value,
-        extraHeaders: extraHeaders,
+        extraHeaders,
         audioElementId: "remoteAudio",
     };
 }
