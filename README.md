@@ -1,13 +1,13 @@
 <a name="WPhone"></a>
 
 ## WPhone
-WPhone is a basic SIP useragent you can use to create web based softphones.
-It uses [SIP.js](sipjs.com) as the foundation, but aims to be much easier for simple uses-cases.
+WPhone is SIP user agent you can use to create web-based softphones.
+It uses [SIP.js](https://sipjs.com) as the foundation but aims to be much easier for simple use-cases.
 
-Simply create an HTMLAudioElement, in your html code, give it an `id` and use it to create your WPhone object.
-See `src/examples.ts` for an implementation example.
+Create an HTMLAudioElement, in your HTML code, give it an id and use it to create your WPhone object.
+See [src/examples.ts](src/examples.ts) for an implementation example.
 
-> Thanks to the folks at [onsip.com](onsip.com) for such an amazing job with SIP.js
+> Thanks to the folks at [onsip.com](onsip.com) for such a fantastic job with SIP.js. 🔥
 
 **Kind**: global class  
 
@@ -45,19 +45,20 @@ Constructs a new WPhone object.
 ```js
 const WPhone = require("wphone");
 
-const wpconfig = {
+const config = {
  displayName: "John Doe",
  domain: "sip.acme.com",
  username: "john",
- secret: "changeit"
+ secret: "changeit",
  audioElementId: "remoteAudio",
- secret: "ws://yoursignalingserver:5062"
+ secret: "ws://yoursignalingserver:5062",
  extraHeaders: ["X-Extra-Header: 'extra header'"]
 }
 
-phone = new WPhone(wpconfig);
-await phone.connect();
-await phone.call({
+wPhone = new WPhone(config);
+
+await wPhone.connect();
+await wPhone.call({
   targetAOR: "sip:1001@sip.domain.net",
   extraHeaders: ["X-Extra-Header: 'more extra headers'"]
 });
@@ -77,9 +78,9 @@ Calls another SIP endpoint.
 
 **Example**  
 ```js
-await phone.connect();
-await phone.call({
-  targetAOR: "sip:1001@sip.domain.net"
+await wPhone.connect();
+await wPhone.call({
+  targetAOR: "sip:1001@sip.acme.com"
 });
 ```
 <a name="WPhone+hangup"></a>
