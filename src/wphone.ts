@@ -164,7 +164,7 @@ export default class WPhone {
   }
 
   /**
-   * Clsoses connection to signaling server.
+   * Closes connection to signaling server.
    */
   disconnect() {
     this.userAgent.stop();
