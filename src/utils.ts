@@ -27,7 +27,6 @@ import {
 import { WPhoneConfig, InviterConfig } from "./types";
 
 export function createInviter(inviterParam: InviterConfig) {
-  console.log("inviterParam.extraHeaders %s", inviterParam.extraHeaders);
   const target = UserAgent.makeURI(inviterParam.targetAOR);
   const inviter = new Inviter(inviterParam.userAgent, target, {
     extraHeaders: inviterParam.extraHeaders,
