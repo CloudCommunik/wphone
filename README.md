@@ -48,7 +48,7 @@ const WPhone = require("wphone");
 const config = {
  displayName: "John Doe",
  domain: "sip.acme.com",
- username: "john",
+ username: "1001",
  secret: "changeit",
  audioElementId: "remoteAudio",
  secret: "ws://yoursignalingserver:5062",
@@ -59,7 +59,7 @@ wPhone = new WPhone(config);
 
 await wPhone.connect();
 await wPhone.call({
-  targetAOR: "sip:1001@sip.domain.net",
+  targetAOR: "sip:1002@sip.acme.com",
   extraHeaders: ["X-Extra-Header: 'more extra headers'"]
 });
 ```
@@ -80,7 +80,7 @@ Calls another SIP endpoint.
 ```js
 await wPhone.connect();
 await wPhone.call({
-  targetAOR: "sip:1001@sip.acme.com"
+  targetAOR: "sip:1002@sip.acme.com"
 });
 ```
 <a name="WPhone+hangup"></a>

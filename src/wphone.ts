@@ -54,7 +54,7 @@ import Events from "events";
  * const config = {
  *  displayName: "John Doe",
  *  domain: "sip.acme.com",
- *  username: "john",
+ *  username: "1001",
  *  secret: "changeit",
  *  audioElementId: "remoteAudio",
  *  secret: "ws://yoursignalingserver:5062",
@@ -65,7 +65,7 @@ import Events from "events";
  * 
  * await wPhone.connect();
  * await wPhone.call({
- *   targetAOR: "sip:1001@sip.domain.net",
+ *   targetAOR: "sip:1002@sip.acme.com",
  *   extraHeaders: ["X-Extra-Header: 'more extra headers'"]
  * });
  */
@@ -131,7 +131,7 @@ export default class WPhone {
    *
    * await wPhone.connect();
    * await wPhone.call({
-   *   targetAOR: "sip:1001@sip.acme.com"
+   *   targetAOR: "sip:1002@sip.acme.com"
    * });
    */
   async call(request: CallRequest) {
