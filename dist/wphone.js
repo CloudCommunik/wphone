@@ -181,7 +181,11 @@ class WPhone {
         throw new Error("Method nyi");
     }
     /**
-     * Fires user agents events.
+     * Fires user agent's events.
+     *
+     * @param {string} eventName - Name of the event fired
+     * @param {Function} callback - Callback with the event's payload
+     *
      * Events:
      *  - invite
      *  - message

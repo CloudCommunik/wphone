@@ -21,7 +21,7 @@ See [src/examples.ts](src/examples.ts) for an implementation example.
     * [.isConnected()](#WPhone+isConnected)
     * [.sendDtmf(tones)](#WPhone+sendDtmf)
     * [.sendMessage(request)](#WPhone+sendMessage)
-    * [.on()](#WPhone+on)
+    * [.on(eventName, callback)](#WPhone+on)
 
 <a name="new_WPhone_new"></a>
 
@@ -142,13 +142,13 @@ Sends a SIP message to another SIP endpoint.
 
 <a name="WPhone+on"></a>
 
-### wPhone.on()
-Fires user agents events.
-Events:
- - invite
- - message
- - hangup
- - error
- - disconnect
+### wPhone.on(eventName, callback)
+Fires user agent's events.
 
 **Kind**: instance method of [<code>WPhone</code>](#WPhone)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| eventName | <code>string</code> | Name of the event fired |
+| callback | <code>function</code> | Callback with the event's payload Events:  - invite  - message  - hangup  - error  - disconnect |
+
