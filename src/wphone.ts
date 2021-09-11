@@ -55,7 +55,6 @@ export default class WPhone {
   audioElement: HTMLAudioElement;
   userAgent: UserAgent;
   events: Events;
-  connected: boolean;
   registerer: Registerer;
   inviter: Inviter;
   sessionDescriptionHandler: SessionDescriptionHandler;
@@ -77,7 +76,6 @@ export default class WPhone {
     this.config = config;
     this.audioElement = getAudio(config.audioElementId);
     this.events = new Events();
-    this.connected = false;
 
     const delegate: UserAgentDelegate = {
       onDisconnect: (error: Error): void => {
