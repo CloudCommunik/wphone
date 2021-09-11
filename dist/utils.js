@@ -21,7 +21,6 @@ exports.getConfig = exports.setInput = exports.getInput = exports.getButton = ex
  */
 const sip_js_1 = require("sip.js");
 function createInviter(inviterParam) {
-    console.log("inviterParam.extraHeaders %s", inviterParam.extraHeaders);
     const target = sip_js_1.UserAgent.makeURI(inviterParam.targetAOR);
     const inviter = new sip_js_1.Inviter(inviterParam.userAgent, target, {
         extraHeaders: inviterParam.extraHeaders,

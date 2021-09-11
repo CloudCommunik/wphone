@@ -16,15 +16,32 @@ const sip_js_1 = require("sip.js");
 const utils_js_1 = require("./utils.js");
 const events_1 = __importDefault(require("events"));
 /**
- * @classdesc WPhone is a basic user agent you can use to build more
- * complex WebRTC solutions.
+ * @classdesc WPhone is a basic SIP useragent you can use to create web based softphones.
+ * It uses [SIP.js](sipjs.com) as the foundation, but aims to be much easier for simple uses-cases.
+ *
+ * Simply create an HTMLAudioElement, in your html code, give it an `id` and use it to create your WPhone object.
+ * See `src/examples.ts` for an implementation example.
+ *
+ * > Thanks to the folks at [onsip.com](onsip.com) for such an amazing job with SIP.js
  *
  * @example
  * const WPhone = require("wphone");
- * phone = new WPhone({...});
+ *
+ * const wpconfig = {
+ *  displayName: "John Doe",
+ *  domain: "sip.acme.com",
+ *  username: "john",
+ *  secret: "changeit"
+ *  audioElementId: "remoteAudio",
+ *  secret: "ws://yoursignalingserver:5062"
+ *  extraHeaders: ["X-Extra-Header: 'extra header'"]
+ * }
+ *
+ * phone = new WPhone(wpconfig);
  * await phone.connect();
- * phone.call({
- *   targetAOR: "sip:1001@sip.domain.net"
+ * await phone.call({
+ *   targetAOR: "sip:1001@sip.domain.net",
+ *   extraHeaders: ["X-Extra-Header: 'more extra headers'"]
  * });
  */
 class WPhone {
@@ -45,7 +62,6 @@ class WPhone {
         this.config = config;
         this.audioElement = (0, utils_js_1.getAudio)(config.audioElementId);
         this.events = new events_1.default();
-        this.connected = false;
         const delegate = {
             onDisconnect: (error) => {
                 if (error) {
@@ -78,7 +94,7 @@ class WPhone {
      * @example
      *
      * await phone.connect();
-     * phone.call({
+     * await phone.call({
      *   targetAOR: "sip:1001@sip.domain.net"
      * });
      */
@@ -106,6 +122,8 @@ class WPhone {
     }
     /**
      * Connects to signaling server and optionally register too.
+     *
+     * @param {boolean} register - If set to `true` it will also register the endpoint
      */
     connect(register = false) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -134,13 +152,13 @@ class WPhone {
         });
     }
     /**
-     * Clsoses connection to signaling server.
+     * Closes connection to signaling server.
      */
     disconnect() {
         this.userAgent.stop();
     }
     /**
-     * Returns true if the wphone is connected to WS or WSS server.
+     * Returns `true` if the wphone is connected to WS or WSS server.
      */
     isConnected() {
         return this.userAgent.isConnected();
@@ -156,7 +174,7 @@ class WPhone {
     /**
      * Sends a SIP message to another SIP endpoint.
      *
-     * @param {MessageRequest} request - Request for SIP message
+     * @param {MessageRequest} request - Request to send SIP message
      */
     sendMessage(request) {
         throw new Error("Method nyi");

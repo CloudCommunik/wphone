@@ -40,15 +40,32 @@ import {
 import Events from "events";
 
 /**
- * @classdesc WPhone is a basic user agent you can use to build more
- * complex WebRTC solutions.
- *
+ * @classdesc WPhone is a basic SIP useragent you can use to create web based softphones.
+ * It uses [SIP.js](sipjs.com) as the foundation, but aims to be much easier for simple uses-cases.
+ * 
+ * Simply create an HTMLAudioElement, in your html code, give it an `id` and use it to create your WPhone object. 
+ * See `src/examples.ts` for an implementation example.
+ * 
+ * > Thanks to the folks at [onsip.com](onsip.com) for such an amazing job with SIP.js
+ * 
  * @example
  * const WPhone = require("wphone");
- * phone = new WPhone({...});
+ * 
+ * const wpconfig = {
+ *  displayName: "John Doe",
+ *  domain: "sip.acme.com",
+ *  username: "john",
+ *  secret: "changeit"
+ *  audioElementId: "remoteAudio",
+ *  secret: "ws://yoursignalingserver:5062"
+ *  extraHeaders: ["X-Extra-Header: 'extra header'"]
+ * }
+ * 
+ * phone = new WPhone(wpconfig);
  * await phone.connect();
- * phone.call({
- *   targetAOR: "sip:1001@sip.domain.net"
+ * await phone.call({
+ *   targetAOR: "sip:1001@sip.domain.net",
+ *   extraHeaders: ["X-Extra-Header: 'more extra headers'"]
  * });
  */
 export default class WPhone {
@@ -112,7 +129,7 @@ export default class WPhone {
    * @example
    *
    * await phone.connect();
-   * phone.call({
+   * await phone.call({
    *   targetAOR: "sip:1001@sip.domain.net"
    * });
    */
@@ -139,7 +156,9 @@ export default class WPhone {
   }
 
   /**
-   * Connects to signaling server and optionally register too.
+   * Connects to signaling server and optionally register too. 
+   * 
+   * @param {boolean} register - If set to `true` it will also register the endpoint
    */
   async connect(register = false) {
     try {
@@ -171,7 +190,7 @@ export default class WPhone {
   }
 
   /**
-   * Returns true if the wphone is connected to WS or WSS server.
+   * Returns `true` if the wphone is connected to WS or WSS server.
    */
   isConnected() {
     return this.userAgent.isConnected();
@@ -189,7 +208,7 @@ export default class WPhone {
   /** 
    * Sends a SIP message to another SIP endpoint.
    *
-   * @param {MessageRequest} request - Request for SIP message
+   * @param {MessageRequest} request - Request to send SIP message
    */
   sendMessage(request: MessageRequest) {
     throw new Error("Method nyi");
